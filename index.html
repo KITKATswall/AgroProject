@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgroCalc PRO - Мал Шаруашылығы Жобасы</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="background-circles">
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
+        <div class="circle c3"></div>
+    </div>
+
+    <div class="container">
+        <div class="glass-card main-card">
+            <h1>AgroCalc 2026</h1>
+            <p class="tagline">Мал шаруашылығының экономикалық тиімділігі</p>
+            
+            <button class="info-btn" onclick="toggleModal()">ℹ️ Жоба туралы ақпарат</button>
+
+            <div class="calculator-grid">
+                <div class="input-group">
+                    <label>Мал түрі:</label>
+                    <select id="animalType">
+                        <option value="horse">Жылқы (Ат)</option>
+                        <option value="cow">Сиыр (Бұқа)</option>
+                        <option value="sheep">Қой</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Мал саны (бас):</label>
+                    <input type="number" id="animalCount" value="1" min="1">
+                </div>
+
+                <div class="input-group">
+                    <label>Бағу мерзімі (ай):</label>
+                    <input type="number" id="months" value="3" min="1">
+                </div>
+
+                <div class="input-group">
+                    <label>Ет бағасы (1кг/тг):</label>
+                    <input type="number" id="meatPrice" value="2800">
+                </div>
+            </div>
+
+            <button class="calc-btn" onclick="calculateAll()">Есептеуді жүргізу</button>
+
+            <div id="result" class="result-area">
+                <div class="res-grid">
+                    <div class="res-item profit-box">
+                        <small>Таза пайда (Болжам)</small>
+                        <p><span id="netProfit">0</span> ₸</p>
+                    </div>
+                    <div class="res-item">
+                        <small>Жалпы шығын</small>
+                        <p><span id="totalExpense">0</span> ₸</p>
+                    </div>
+                    <div class="res-item">
+                        <small>Қосымша салмақ</small>
+                        <p><span id="totalWeight">0</span> кг</p>
+                    </div>
+                </div>
+
+                <div class="chart-wrapper">
+                    <canvas id="economicsChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoModal" class="modal">
+        <div class="modal-content glass-card">
+            <span class="close-btn" onclick="toggleModal()">&times;</span>
+            <h2 class="modal-title">Жоба: Дәстүрлі мал шаруашылығы</h2>
+            
+            <div class="info-scroll">
+                <section class="info-section">
+                    <h3>1. Төрт түліктің ерекшелігі мен азықтандыру</h3>
+                    <table class="info-table">
+                        <tr><th>Мал түрі</th><th>Күнделікті азық</th><th>Ерекшелігі</th></tr>
+                        <tr><td>Жылқы</td><td>10-15 кг шөп + 3-5 кг жем</td><td>Қыста тебіндеп жайыла алады.</td></tr>
+                        <tr><td>Сиыр</td><td>15-20 кг шөп + 4-6 кг жем</td><td>Күніне 30-60 литр су ішеді.</td></tr>
+                        <tr><td>Қой</td><td>2-3 кг шөп + 0.5 кг жем</td><td>Шөптің 600 түрін жейді (талғамсыз).</td></tr>
+                    </table>
+                </section>
+
+                <section class="info-section">
+                    <h3>2. Қаржылық статистика (2024-2025)</h3>
+                    <p><b>Сатып алу бағасы (Инвестиция):</b></p>
+                    <ul>
+                        <li>Жылқы: 450 000 – 700 000 ₸</li>
+                        <li>Сиыр: 350 000 – 550 000 ₸</li>
+                        <li>Қой: 45 000 – 70 000 ₸</li>
+                    </ul>
+                    <p><b>Жылдық ұстау шығыны:</b> Жылқы (~135к), Сиыр (~165к), Қой (~22к).</p>
+                </section>
+
+                <section class="info-section danger">
+                    <h3>3. Жобаның "Минустары" мен Тәуекелдері</h3>
+                    <ul>
+                        <li>📉 <b>Жем-шөп бағасы:</b> Қуаңшылықта баға 2-3 есе өседі.</li>
+                        <li>🦠 <b>Ауру-сырқау:</b> Вакцинацияны уақытылы жасамау мал қырылуына әкеледі.</li>
+                        <li>🌨️ <b>Табиғи жағдайлар:</b> Боран, жұт немесе қасқыр шабуы.</li>
+                        <li>💰 <b>Өтімділік:</b> Делдалдардың бағаны түсіруі.</li>
+                    </ul>
+                </section>
+
+                <section class="info-section success">
+                    <h3>4. Пайда (Экономикалық тиімділік)</h3>
+                    <p>Егер 1.5 жасар бұқаны 2 ай бордақыласаңыз, ол <b>80-90 кг</b> таза салмақ қосады.</p>
+                    <p>Ет бағасы: 2 500 - 3 000 теңге.</p>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
